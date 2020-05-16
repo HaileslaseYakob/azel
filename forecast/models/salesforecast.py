@@ -178,12 +178,12 @@ class SalesforecastProductItems(models.Model):
     item_qty = fields.Float(
         'Required Quantity',
         default=1.0, digits='Product Unit of Measure',
-        readonly=False, required=True, tracking=True, group_operator="sum")
+        readonly=False, required=True, group_operator="sum")
 
     item_available = fields.Float(
         'Qty available',
         related='item_id.qty_available',
-        readonly=False, store=True)
+        readonly=False, store=True, group_operator="max")
 
     item_required = fields.Float(
         'Item required',
