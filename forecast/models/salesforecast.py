@@ -22,12 +22,12 @@ class Salesforecast(models.Model):
                     'product_id': re.product_id.id,
                     'item_qty': bo.product_qty * re.product_qty,
                     'item_available': bo.product_id.qty_available,
-                    'item_required': 1}
+                    'item_required': abs(bo.product_id.qty_available-( bo.product_qty * re.product_qty))}
                 list_bom_items.append((0, 0, obje))
                 list_items.append(obje)
 
         data=pd.DataFrame(list_items)
-        grpd=data.groupby('item_id', as_index=False)['item_qty'].sum()
+        grpd=data.groupby('item_id').agg({'item_qty':'sum','item_required':'sum'}).reset_index()
         list_grouped=grpd.to_dict('r')
         self.salesforecast_items = list_bom_items
         lst=[]
@@ -87,6 +87,11 @@ class SalesforecastProducts(models.Model):
     """ List of salesforecast products """
     _name = 'forecast.salesforecastproducts'
     _description = 'Salesforecast Products'
+    @api.depends('product_qty')
+    def compute_total(self):
+
+        for val in self:
+            val.product_total=val.product_unit_price*val.product_qty
 
 
     @api.onchange('product_id')
@@ -95,6 +100,7 @@ class SalesforecastProducts(models.Model):
         if not self.product_id:
             self.bom_id = False
         else:
+
             bom = self.env['mrp.bom']._bom_find(product=self.product_id,
                                                 picking_type=self.salesforecast_id.picking_type_id,
                                                 company_id=self.salesforecast_id.picking_type_id.company_id.id,
@@ -113,14 +119,23 @@ class SalesforecastProducts(models.Model):
     product_id = fields.Many2one(
         'product.product', 'Product Name', store=True)
 
+    product_unit_price = fields.Float(
+        'Unit Price',
+        related='product_id.list_price',
+        readonly=False, store=True)
+
     product_qty = fields.Float(
         'Quantity Forecasted',
         default=1.0, digits='Product Unit of Measure',
         readonly=False, required=True, tracking=True)
+
     product_batch_size = fields.Float(
         'Batch Size',
         default=1.0, digits='Product Unit of Measure',
         required=True)
+
+    product_total = fields.Float(compute='compute_total', string='Total')
+
     bom_id = fields.Many2one(
         'mrp.bom', 'Bill of Material',
         domain="""[
@@ -143,6 +158,12 @@ class SalesforecastProductsItems(models.Model):
     _name = 'forecast.salesforecastproductsitems'
     _description = 'Salesforecast BOM Items'
 
+    @api.depends('item_qty')
+    def _compute_total(self):
+
+        for val in self:
+            val.item_total=val.item_unit_price*val.item_qty
+
     salesforcast_product_id = fields.Many2one('forecast.salesforecastproducts', 'salesforecast product ref')
     salesforecast_id = fields.Many2one(
         'forecast.salesforecast', 'Salesforecast')
@@ -153,12 +174,19 @@ class SalesforecastProductsItems(models.Model):
     item_qty = fields.Float(
         'Required Quantity',
         default=1.0, digits='Product Unit of Measure',
-        readonly=False, required=True, tracking=True, group_operator="sum")
+        readonly=True, required=True, tracking=True, group_operator="sum")
 
     item_available = fields.Float(
         'Qty available',
         related='item_id.qty_available',
         readonly=False, store=True)
+
+    item_unit_price = fields.Float(
+        'Unit Price',
+        related='item_id.list_price',
+        readonly=False, store=True)
+
+    item_total = fields.Float(compute='_compute_total', string='Total',store=True)
 
     item_required = fields.Float(
         'Item required',
@@ -171,14 +199,36 @@ class SalesforecastProductItems(models.Model):
     _name = 'forecast.salesforecastitemsgrouped'
     _description = 'Salesforecast ingredients grouped'
 
+
+    @api.onchange('item_required')
+    def onchange_product_id(self):
+        """ Finds UoM of changed product. """
+        self.item_total = self.item_unit_price * self.item_required
+
+    @api.depends('item_qty')
+    def _compute_total(self):
+
+        for val in self:
+            val.item_total=val.item_unit_price*val.item_required
+
+
     salesforecast_id = fields.Many2one(
         'forecast.salesforecast', 'Salesforecast')
+
     item_id = fields.Many2one(
         'product.product', 'Item Name')
+
     item_qty = fields.Float(
         'Required Quantity',
         default=1.0, digits='Product Unit of Measure',
         readonly=False, required=True, group_operator="sum")
+
+    item_unit_price = fields.Float(
+        'Unit Price',
+        related='item_id.list_price',
+        readonly=False, store=True)
+
+    item_total = fields.Float(compute='_compute_total', string='Total',store=True)
 
     item_available = fields.Float(
         'Qty available',
@@ -189,4 +239,3 @@ class SalesforecastProductItems(models.Model):
         'Item required',
         default=1.0, digits='Ingredient Required',
         readonly=False, required=False, tracking=True)
-

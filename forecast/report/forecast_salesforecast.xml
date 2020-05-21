@@ -43,6 +43,9 @@
                                 <th>Item ID</th>
                                 <th>Req. Quantity</th>
                                 <th>Available</th>
+                                <th>Difference</th>
+                                <th>Unit price</th>
+                                <th>Total</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -57,7 +60,15 @@
                                     <td>
                                         <span t-field="raw_line.item_available"/>
                                     </td>
-
+                                    <td>
+                                        <span t-field="raw_line.item_required"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="raw_line.item_unit_price"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="raw_line.item_total"/>
+                                    </td>
                                 </tr>
                             </t>
                         </tbody>
