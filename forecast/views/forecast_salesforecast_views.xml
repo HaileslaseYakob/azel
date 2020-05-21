@@ -47,9 +47,12 @@
                             <field name="salesforecast_product" >
                                  <tree  editable="bottom">
                                     <field name="product_id" />
-                                    <field name="bom_id"/>
+                                     <field name="bom_id" />
                                     <field name="product_qty" string="Quantity"/>
                                     <field name="product_batch_size" string="Batch size"/>
+                                    <field name="product_unit_price" string="Unit Price"/>
+                                    <field name="product_total" string="Total"/>
+
                                 </tree>
                             </field>
                         </page>
@@ -59,8 +62,11 @@
                                     <tree  editable="bottom">
                                         <field name="product_id" />
                                         <field name="item_id" />
-                                        <field name="item_qty" string="Quantity"/>
-                                        <field name="item_available"/>
+                                        <field name="item_qty" string="Required Qty"/>
+                                        <field name="item_available"  string="Available qty"/>
+                                        <field name="item_required"  string="Shortage"/>
+                                        <field name="item_unit_price" string="Unit Price"/>
+                                        <field name="item_total" string="Total"/>
                                      </tree>
                                  </field>
                         </page>
@@ -69,8 +75,11 @@
                                  <field name="salesforecast_items_grouped" >
                                     <tree  editable="bottom">
                                         <field name="item_id" />
-                                        <field name="item_qty" string="Quantity"/>
-                                        <field name="item_available"/>
+                                        <field name="item_qty" string="Required Qty"/>
+                                        <field name="item_available" string="Available qty"/>
+                                        <field name="item_required" string="Shortage"/>
+                                        <field name="item_unit_price" string="Unit Price"/>
+                                        <field name="item_total" string="Total"/>
                                      </tree>
                                  </field>
                         </page>
