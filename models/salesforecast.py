@@ -100,6 +100,7 @@ class SalesforecastProducts(models.Model):
         if not self.product_id:
             self.bom_id = False
         else:
+
             bom = self.env['mrp.bom']._bom_find(product=self.product_id,
                                                 picking_type=self.salesforecast_id.picking_type_id,
                                                 company_id=self.salesforecast_id.picking_type_id.company_id.id,
