@@ -77,7 +77,7 @@
                                         <field name="item_qty" string="Required Qty"/>
                                         <field name="item_available" string="Available qty"/>
                                         <field name="item_required" string="Shortage"/>
-                                        <field name="item_unit_price"/>
+                                        <field name="item_unit_price" string="Unit price"/>
                                         <field name="item_total" string="Total"  sum="Grand Total"/>
                                      </tree>
                                  </field>
