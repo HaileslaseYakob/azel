@@ -27,7 +27,7 @@ class Salesforecast(models.Model):
                 list_items.append(obje)
 
         data=pd.DataFrame(list_items)
-        grpd=data.groupby('product_id').agg({'item_qty':'sum','item_required':'sum'}).reset_index()
+        grpd=data.groupby('item_id').agg({'item_qty':'sum','item_required':'sum'}).reset_index()
         list_grouped=grpd.to_dict('r')
         self.salesforecast_items = list_bom_items
         lst=[]
