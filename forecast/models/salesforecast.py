@@ -27,7 +27,7 @@ class Salesforecast(models.Model):
                 list_items.append(obje)
 
         data=pd.DataFrame(list_items)
-        data.columns=data.columns.str.strip()
+        data.columns=data.columns.strip()
         grpd=data.groupby('item_id').agg({'item_qty':'sum','item_required':'sum'}).reset_index()
         list_grouped=grpd.to_dict('r')
         self.salesforecast_items = list_bom_items
@@ -183,7 +183,7 @@ class SalesforecastProductsItems(models.Model):
         readonly=False, store=True)
 
     item_unit_price = fields.Float(
-        'Unit Price.',
+        'Unit Price',
         related='item_id.standard_price',
         readonly=False, store=True)
 
@@ -225,7 +225,7 @@ class SalesforecastProductItems(models.Model):
         readonly=False, required=True, group_operator="sum")
 
     item_unit_price = fields.Float(
-        'Unit Price..',
+        'Unit Price',
         related='item_id.standard_price',
         readonly=False, store=True)
 
