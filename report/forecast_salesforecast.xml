@@ -120,8 +120,9 @@
                         <thead>
                             <tr>
                                 <th>Product</th>
-                                <th>BOM used</th>
-                                <th>Available</th>
+                                <th>Qty</th>
+                                <th>Unit price</th>
+                                <th>Total</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -131,10 +132,13 @@
                                         <span t-field="raw_line.product_id"/>
                                     </td>
                                     <td>
-                                        <span t-field="raw_line.bom_id"/>
+                                        <span t-field="raw_line.product_qty"/>
                                     </td>
                                     <td>
-                                        <span t-field="raw_line.product_qty"/>
+                                        <span t-field="raw_line.product_unit_price"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="raw_line.product_total"/>
                                     </td>
 
                                 </tr>
