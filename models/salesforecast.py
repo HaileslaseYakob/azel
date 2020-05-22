@@ -182,7 +182,7 @@ class SalesforecastProductsItems(models.Model):
         readonly=False, store=True)
 
     item_unit_price = fields.Float(
-        'Unit Price',
+        'Unitt Price',
         related='item_id.standard_price',
         readonly=False, store=True)
 
@@ -224,7 +224,7 @@ class SalesforecastProductItems(models.Model):
         readonly=False, required=True, group_operator="sum")
 
     item_unit_price = fields.Float(
-        'Unit Price',
+        'Unitt Price',
         related='item_id.standard_price',
         readonly=False, store=True)
 
