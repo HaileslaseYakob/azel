@@ -22,12 +22,14 @@ class Salesforecast(models.Model):
                     'product_id': re.product_id.id,
                     'item_qty': bo.product_qty * re.product_qty,
                     'item_available': bo.product_id.qty_available,
-                    'item_required': abs(bo.product_id.qty_available-( bo.product_qty * re.product_qty))}
+                    'item_unit_price': bo.product_id.standard_price,
+                    'item_required': abs(bo.product_id.qty_available-( bo.product_qty * re.product_qty)),
+                    'item_total': abs(bo.product_id.qty_available-( bo.product_qty * re.product_qty))*bo.product_id.standard_price}
                 list_bom_items.append((0, 0, obje))
                 list_items.append(obje)
 
         data=pd.DataFrame(list_items)
-        grpd=data.groupby('item_id').agg({'item_qty':'sum','item_required':'sum'}).reset_index()
+        grpd=data.groupby('item_id').agg({'item_qty':'sum','item_required':'sum','item_total':'sum','item_unit_price':'max'}).reset_index()
         list_grouped=grpd.to_dict('r')
         self.salesforecast_items = list_bom_items
         lst=[]
