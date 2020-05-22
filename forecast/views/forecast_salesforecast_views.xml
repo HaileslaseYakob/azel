@@ -47,11 +47,10 @@
                             <field name="salesforecast_product" >
                                  <tree  editable="bottom">
                                     <field name="product_id" />
-                                     <field name="bom_id" />
-                                    <field name="product_qty" string="Quantity"/>
-                                    <field name="product_batch_size" string="Batch size"/>
+                                    <field name="product_qty" string="Quantity" sum="Grand Total"/>
+                                    <field name="product_batch_size" string="Batch size" sum="Total"/>
                                     <field name="product_unit_price" string="Unit Price"/>
-                                    <field name="product_total" string="Total"/>
+                                    <field name="product_total" string="Total" sum="Total"/>
 
                                 </tree>
                             </field>
@@ -66,7 +65,7 @@
                                         <field name="item_available"  string="Available qty"/>
                                         <field name="item_required"  string="Shortage"/>
                                         <field name="item_unit_price" string="Unit Price"/>
-                                        <field name="item_total" string="Total"/>
+                                        <field name="item_total" string="Total" sum="Grand Total"/>
                                      </tree>
                                  </field>
                         </page>
@@ -79,7 +78,7 @@
                                         <field name="item_available" string="Available qty"/>
                                         <field name="item_required" string="Shortage"/>
                                         <field name="item_unit_price" string="Unit Price"/>
-                                        <field name="item_total" string="Total"/>
+                                        <field name="item_total" string="Total" sum="Grand Total"/>
                                      </tree>
                                  </field>
                         </page>
