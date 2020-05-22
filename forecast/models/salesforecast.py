@@ -224,12 +224,11 @@ class SalesforecastProductItems(models.Model):
         readonly=False, required=True, group_operator="sum")
 
     item_unit_price = fields.Float(
-        'Unit Price.',
+        'Unit Price..',
         related='item_id.standard_price',
         readonly=False, store=True)
 
-    item_total = fields.Float(compute='_compute_total', string='Total',store=True)
-
+   
     item_available = fields.Float(
         'Qty available',
         related='item_id.qty_available',
@@ -239,3 +238,6 @@ class SalesforecastProductItems(models.Model):
         'Item required',
         default=1.0, digits='Ingredient Required',
         readonly=False, required=False, tracking=True)
+    
+    item_total = fields.Float(compute='_compute_total', string='Total',store=True)
+
