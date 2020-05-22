@@ -20,15 +20,14 @@ class Salesforecast(models.Model):
                 obje = {
                     'item_id': bo.product_id.id,
                     'product_id': re.product_id.id,
-                    'item_qty': bo.product_qty * re.product_qty,
-                    'item_available': bo.product_id.qty_available,
-                    'item_required': abs(bo.product_id.qty_available-( bo.product_qty * re.product_qty))}
+                    'item_qty':1,
+                    'item_available': 1,
+                    'item_required': 1}
                 list_bom_items.append((0, 0, obje))
                 list_items.append(obje)
 
         data=pd.DataFrame(list_items)
-        data.columns = [c.replace(' ', '_') for c in data.columns]
-        grpd=data.groupby('item_id').agg({'item_qty':'sum','item_required':'sum'}).reset_index()
+        grpd=data.groupby('product_id').agg({'item_qty':'sum','item_required':'sum'}).reset_index()
         list_grouped=grpd.to_dict('r')
         self.salesforecast_items = list_bom_items
         lst=[]
