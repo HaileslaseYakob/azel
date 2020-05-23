@@ -23,8 +23,8 @@ class Salesforecast(models.Model):
                     'item_qty': bo.product_qty * re.product_qty,
                     'item_available': bo.product_id.qty_available,
                     'item_unit_price': bo.product_id.standard_price,
-                    'item_required': abs(bo.product_id.qty_available-( bo.product_qty * re.product_qty)),
-                    'item_total': abs(bo.product_id.qty_available-( bo.product_qty * re.product_qty))*bo.product_id.standard_price}
+                    'item_required': abs(bo.product_id.qty_available-( bo.product_qty * re.product_batch_size)),
+                    'item_total': abs(bo.product_id.qty_available-( bo.product_qty * re.product_batch_size))*bo.product_id.standard_price}
                 list_bom_items.append((0, 0, obje))
                 list_items.append(obje)
 
@@ -95,7 +95,17 @@ class SalesforecastProducts(models.Model):
         for val in self:
             val.product_total=val.product_unit_price*val.product_qty
 
-
+    @api.onchange('product_qty')
+    def onchange_product_id(self):
+        for val in self:
+            wholeDividend=val.product_qty/val.product_batch_qty
+            decimalDividend=val.product_qty%val.product_batch_qty
+            if decimalDividend>0
+                wholeDividend+=1
+            batch 
+            val.product_batch_size=wholeDividend
+            val.product_qty=wholeDividend * val.product_batch_qty
+        
     @api.onchange('product_id')
     def onchange_product_id(self):
         """ Finds UoM of changed product. """
@@ -110,6 +120,7 @@ class SalesforecastProducts(models.Model):
             if bom:
                 self.bom_id = bom.id
                 self.product_qty = self.bom_id.product_qty
+                self.product_batch_qty = self.bom_id.product_qty
                 self.product_uom_id = self.bom_id.product_uom_id.id
             else:
                 self.bom_id = False
@@ -131,9 +142,14 @@ class SalesforecastProducts(models.Model):
         default=1.0, digits='Product Unit of Measure',
         readonly=False, required=True, tracking=True)
 
+    product_batch_qty = fields.Float(
+        'Quantity Forecasted',
+        default=1.0, digits='Product Unit of Measure',
+        readonly=False, required=True, tracking=True)
+        
     product_batch_size = fields.Float(
         'Batch Size',
-        default=1.0, digits='Product Unit of Measure',
+        default=1.0, digits='Product Batch size',
         required=True)
 
     product_total = fields.Float(compute='compute_total', string='Total')
