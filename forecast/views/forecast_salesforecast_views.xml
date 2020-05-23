@@ -58,7 +58,7 @@
                             </field>
                         </page>
 
-                        <page string="Ingredients">
+                        <page string="Material requirements">
                                  <field name="salesforecast_items" >
                                     <tree  editable="bottom">
                                         <field name="product_id"/>
@@ -72,7 +72,7 @@
                                  </field>
                         </page>
 
-                        <page string="Ingredients summary">
+                        <page string="Material requirements summary">
                                  <field name="salesforecast_items_grouped" >
                                     <tree  editable="bottom">
                                         <field name="item_id"/>
