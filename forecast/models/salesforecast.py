@@ -105,7 +105,7 @@ class SalesforecastProducts(models.Model):
                 wholeDividend+=1
              
             val.product_batch_size=wholeDividend
-            val.product_qty=wholeDividend * val.product_batch_qty
+            val.product_qty=decimalDividend
         
     @api.onchange('product_id')
     def onchange_product_id(self):
