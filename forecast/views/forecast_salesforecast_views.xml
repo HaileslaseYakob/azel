@@ -23,7 +23,7 @@
             <field name="arch" type="xml">
                 <form string="Salesforecast form.">
                         <header>
-                        <button name="list_consumption" string="List Consumption " type="object" groups="base.group_user"/>
+                        <button name="list_consumption" string="List Consumption" type="object" groups="base.group_user"/>
                         </header>
                 <sheet>
                     <div class="oe_title">
