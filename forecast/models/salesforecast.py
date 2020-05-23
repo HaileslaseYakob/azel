@@ -100,7 +100,7 @@ class SalesforecastProducts(models.Model):
         for val in self:
             wholeDividend=val.product_qty/val.product_batch_qty
             decimalDividend=val.product_qty%val.product_batch_qty
-            if decimalDividend>0
+            if decimalDividend>0:
                 wholeDividend+=1
             batch 
             val.product_batch_size=wholeDividend
