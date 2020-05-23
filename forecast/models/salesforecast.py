@@ -96,16 +96,7 @@ class SalesforecastProducts(models.Model):
         for val in self:
             val.product_total=val.product_unit_price*val.product_qty
 
-    @api.onchange('product_qty')
-    def onchange_product_QTY(self):
-        for val in self:
-            wholeDividend=val.product_qty/val.product_batch_qty
-            decimalDividend=val.product_qty%val.product_batch_qty
-            if decimalDividend>0:
-                wholeDividend+=1
-             
-            val.product_batch_size=wholeDividend
-            val.product_qty=decimalDividend
+
         
     @api.onchange('product_id')
     def onchange_product_id(self):
