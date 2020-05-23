@@ -241,5 +241,5 @@ class SalesforecastProductItems(models.Model):
         default=1.0, digits='Ingredient Required',
         readonly=False, required=False, tracking=True)
     
-    item_total = fields.Float(compute='_compute_total', string='Total',store=True)
+    item_total = fields.Float(string='Total',store=True)
 
