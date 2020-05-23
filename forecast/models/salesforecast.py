@@ -20,7 +20,7 @@ class Salesforecast(models.Model):
                 obje = {
                     'item_id': bo.product_id.id,
                     'product_id': re.product_id.id,
-                    'item_qty': bo.product_qty * re.product_qty,
+                    'item_qty': bo.product_qty * re.product_batch_size,
                     'item_available': bo.product_id.qty_available,
                     'item_unit_price': bo.product_id.standard_price,
                     'item_required': abs(bo.product_id.qty_available-( bo.product_qty * re.product_batch_size)),
@@ -89,6 +89,7 @@ class SalesforecastProducts(models.Model):
     """ List of salesforecast products """
     _name = 'forecast.salesforecastproducts'
     _description = 'Salesforecast Products'
+    
     @api.depends('product_qty')
     def compute_total(self):
 
@@ -96,7 +97,7 @@ class SalesforecastProducts(models.Model):
             val.product_total=val.product_unit_price*val.product_qty
 
     @api.onchange('product_qty')
-    def onchange_product_id(self):
+    def onchange_product_QTY(self):
         for val in self:
             wholeDividend=val.product_qty/val.product_batch_qty
             decimalDividend=val.product_qty%val.product_batch_qty
