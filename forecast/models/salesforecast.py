@@ -79,9 +79,9 @@ class Salesforecast(models.Model):
     company_id = fields.Many2one(
         'res.company', 'Company', default=lambda self: self.env.company,
         index=True, required=True)
-    salesforecast_product = fields.One2many('forecast.salesforecastproducts', 'salesforecast_id', 'Salesforecast Products')
-    salesforecast_items = fields.One2many('forecast.salesforecastproductsitems', 'salesforecast_id', 'Salesforecast Items')
-    salesforecast_items_grouped = fields.One2many('forecast.salesforecastitemsgrouped', 'salesforecast_id', 'Ingredients summary')
+    salesforecast_product = fields.One2many('forecast.salesforecastproducts', 'salesforecast_id', 'Salesforecast Products',limit=800)
+    salesforecast_items = fields.One2many('forecast.salesforecastproductsitems', 'salesforecast_id', 'Salesforecast Items',limit=800)
+    salesforecast_items_grouped = fields.One2many('forecast.salesforecastitemsgrouped', 'salesforecast_id', 'Ingredients summary',limit=800)
 
 
 
