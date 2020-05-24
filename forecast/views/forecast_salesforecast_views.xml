@@ -72,7 +72,7 @@
                                  </field>
                         </page>
 
-                        <page string="Material requirements summary">
+                        <page string="Material Requirements Summary">
                                  <field name="salesforecast_items_grouped" >
                                     <tree  editable="bottom" limit="500">
                                         <field name="item_id"/>
