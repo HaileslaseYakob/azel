@@ -70,7 +70,7 @@
                                     <td>
                                         <span t-field="raw_line.item_total" t-options='{"widget": "float", "precision": 2}'/>
                                     </td>
-                                    <t t-set="qty" t-value="totall + raw_line.item_total"/>
+                                    <t t-set="totall" t-value="totall + raw_line.item_total"/>
                                 </tr>
                                 <tr>
                                        <td class="text-right"> <span></span> </td>
@@ -117,13 +117,7 @@
                             <span t-field="o.date_planned_finished"/>
                         </div>
                     </div>
-
-
-                    <h3 t-if="o.salesforecast_product">
-                        <t>
-                            Salesforecast Products.
-                        </t>
-                    </h3>
+      
 
                     <table class="table table-sm" t-if="o.salesforecast_product">
                         <thead>
