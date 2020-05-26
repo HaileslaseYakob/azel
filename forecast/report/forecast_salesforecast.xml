@@ -140,7 +140,7 @@
                                         <span t-field="raw_line.product_qty"/>
                                     </td>
                                     <td>
-                                        <span t-field="raw_line.product_qty * raw_line.product_unit_price"/>
+                                        <span t-esc="raw_line.product_qty * raw_line.product_unit_price"/>
                                     </td>
                                     <t t-set="qty" t-value="qty + raw_line.product_qty"/>
                                     <t t-set="total" t-value="total + (raw_line.product_qty * raw_line.product_unit_price)"/>
