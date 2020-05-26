@@ -33,7 +33,7 @@
 
                     <h3 t-if="o.salesforecast_product">
                         <t>
-                            Salesforecast ingredients summary.
+                            Salesforecast Ingredients Summary
                         </t>
                     </h3>
 
@@ -112,7 +112,7 @@
 
                     <h3 t-if="o.salesforecast_product">
                         <t>
-                            Salesforecast products.
+                            Salesforecast Products.
                         </t>
                     </h3>
 
@@ -120,8 +120,7 @@
                         <thead>
                             <tr>
                                 <th>Product</th>
-                                <th>BOM used</th>
-                                <th>Available</th>
+                                <th>Qty</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -131,12 +130,12 @@
                                         <span t-field="raw_line.product_id"/>
                                     </td>
                                     <td>
-                                        <span t-field="raw_line.bom_id"/>
-                                    </td>
-                                    <td>
                                         <span t-field="raw_line.product_qty"/>
                                     </td>
-
+                                    <t t-set="qty" t-value="qty + o.product_qty"/>
+                                </tr>
+                                <tr>
+                                       <td colspan="3" class="text-right"> <span t-esc="qty"></span> </td>
                                 </tr>
                             </t>
                         </tbody>
