@@ -76,6 +76,7 @@
                                        <td class="text-right"> <span></span> </td>
                                        <td class="text-right"> <span></span> </td>
                                        <td class="text-right"> <span></span> </td>
+                                       <td class="text-right"> <span></span> </td>
                                        <td class="text-right"> <span>Grand Total</span> </td>
                                        <td class="text-right"> <span t-esc="totall" t-options='{"widget": "float", "precision": 2}'></span> </td>
                                 </tr>
