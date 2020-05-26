@@ -50,6 +50,7 @@
                         </thead>
                         <tbody>
                             <t t-if="o.salesforecast_items_grouped">
+                                <t t-set="totall" t-value="0.0"/>
                                 <tr t-foreach="o.salesforecast_items_grouped" t-as="raw_line">
                                     <td>
                                         <span t-field="raw_line.item_id"/>
@@ -69,6 +70,14 @@
                                     <td>
                                         <span t-field="raw_line.item_total"/>
                                     </td>
+                                    <t t-set="qty" t-value="totall + raw_line.item_total"/>
+                                </tr>
+                                <tr>
+                                       <td class="text-right"> <span></span> </td>
+                                       <td class="text-right"> <span></span> </td>
+                                       <td class="text-right"> <span></span> </td>
+                                       <td class="text-right"> <span>Grand Total</span> </td>
+                                       <td class="text-right"> <span t-esc="totall"></span> </td>
                                 </tr>
                             </t>
                         </tbody>
@@ -116,7 +125,7 @@
                         </t>
                     </h3>
 
-                    <table class="table table-sm" t-if="o.salesforecast_items_grouped">
+                    <table class="table table-sm" t-if="o.salesforecast_product">
                         <thead>
                             <tr>
                                 <th>Product</th>
@@ -126,7 +135,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <t t-if="o.salesforecast_items_grouped">
+                            <t t-if="o.salesforecast_product">
                                 <t t-set="qty" t-value="0.0"/>
                                 <t t-set="total" t-value="0.0"/>
                                 <tr t-foreach="o.salesforecast_product" t-as="raw_line">
@@ -140,10 +149,10 @@
                                         <span t-field="raw_line.product_qty"/>
                                     </td>
                                     <td>
-                                        <span t-esc="raw_line.product_qty * raw_line.product_unit_price"></span>
+                                        <span t-esc="raw_line.product_total"></span>
                                     </td>
                                     <t t-set="qty" t-value="qty + raw_line.product_qty"/>
-                                    <t t-set="total" t-value="total + (raw_line.product_qty * raw_line.product_unit_price)"/>
+                                    <t t-set="total" t-value="total + raw_line.product_total"/>
                                 </tr>
                                 <tr>
                                        <td class="text-right"> <span></span> </td>
