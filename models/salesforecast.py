@@ -134,7 +134,7 @@ class SalesforecastProducts(models.Model):
         default=1.0, digits='Product Unit of Measure',
         required=True)
 
-    product_total = fields.Float(compute='compute_total', string='Total')
+    product_total = fields.Float(compute='compute_total', string='Total',store=True)
 
     bom_id = fields.Many2one(
         'mrp.bom', 'Bill of Material',
@@ -191,7 +191,7 @@ class SalesforecastProductsItems(models.Model):
     item_required = fields.Float(
         'Item required',
         default=1.0, digits='Ingredient Required',
-        readonly=False, required=False, tracking=True)
+        readonly=False, required=False, tracking=True,store=True)
 
 
 class SalesforecastProductItems(models.Model):
@@ -238,4 +238,4 @@ class SalesforecastProductItems(models.Model):
     item_required = fields.Float(
         'Item required',
         default=1.0, digits='Ingredient Required',
-        readonly=False, required=False, tracking=True)
+        readonly=False, required=False, tracking=True,store=True)
