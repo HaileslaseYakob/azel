@@ -125,6 +125,7 @@
                         </thead>
                         <tbody>
                             <t t-if="o.salesforecast_items_grouped">
+                                <t t-set="qty" t-value="0.0"/>
                                 <tr t-foreach="o.salesforecast_product" t-as="raw_line">
                                     <td>
                                         <span t-field="raw_line.product_id"/>
