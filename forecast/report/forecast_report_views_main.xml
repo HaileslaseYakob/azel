@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-
+        
          <report
             string="Salesforecast"
+            id="action_report_salesforecast_products"
+            model="forecast.salesforecast"
+            name="forecast.report_salesforecast_products"
+            file="forecast.report_salesforecast_products"
+            report_type="qweb-pdf"
+         />
+        
+         <report
+            string="Material Requirements"
             id="action_report_salesforecast"
             model="forecast.salesforecast"
             name="forecast.report_salesforecast"
@@ -11,14 +20,6 @@
             report_type="qweb-pdf"
          />
 
-         <report
-            string="Salesforecast products"
-            id="action_report_salesforecast_products"
-            model="forecast.salesforecast"
-            name="forecast.report_salesforecast_products"
-            file="forecast.report_salesforecast_products"
-            report_type="qweb-pdf"
-         />
 
     </data>
 </odoo>
