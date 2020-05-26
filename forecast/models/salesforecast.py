@@ -153,7 +153,7 @@ class SalesforecastProducts(models.Model):
         default=1.0, digits='Product Batch size',
         required=True)
 
-    product_total = fields.Float(compute='compute_total', string='Total')
+    product_total = fields.Float(compute='compute_total', string='Total',store=True)
 
     bom_id = fields.Many2one(
         'mrp.bom', 'Bill of Material',
