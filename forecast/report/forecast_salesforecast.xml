@@ -132,7 +132,7 @@
                                     <td>
                                         <span t-field="raw_line.product_qty"/>
                                     </td>
-                                    <t t-set="qty" t-value="qty + o.product_qty"/>
+                                    <t t-set="qty" t-value="qty + raw_line.product_qty"/>
                                 </tr>
                                 <tr>
                                        <td colspan="3" class="text-right"> <span t-esc="qty"></span> </td>
