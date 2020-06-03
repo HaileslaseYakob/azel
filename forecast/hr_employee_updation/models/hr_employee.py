@@ -122,7 +122,7 @@ class HrEmployee(models.Model):
         ('demobilized', 'Demobilized'),
         ('fighter', 'Fighter'),
         ('nationalservice', 'National Service'),
-    ], default='active', string="Status")
+    ], default='nationalservice', string="Status")
     name_tigrigna = fields.Char(string='Tigrigna Name')
     er_id = fields.Char(string='ER ID')
     zone = fields.Many2one('hr.employee.zone', string="Zone")
