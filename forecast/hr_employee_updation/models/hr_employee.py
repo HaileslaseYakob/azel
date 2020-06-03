@@ -68,6 +68,13 @@ class HrVillage(models.Model):
         _description = 'Village'
         name = fields.Char(string='Village')
 
+class HrVillage(models.Model):
+        """Table for keep employee family information"""
+
+        _name = 'hr.employee.round'
+        _description = 'Round'
+        name = fields.Char(string='Round')
+
 class HrEmployeeFamilyInfo(models.Model):
     """Table for keep employee family information"""
 
@@ -102,12 +109,19 @@ class HrEmployee(models.Model):
     _inherit = 'hr.employee'
 
     section_id = fields.Many2one('hr.department.section', string="Section")
+    round_id = fields.Many2one('hr.employee.round', string="Round")
     personal_mobile = fields.Char(string='Mobile', related='address_home_id.mobile', store=True,
                   help="Personal mobile number of the employee")
     mothername = fields.Char(string='Mother Name')
     employee_status = fields.Selection([
         ('active', 'Active'),
         ('terminated', 'Terminated'),
+    ], default='active', string="Status")
+    employee_type = fields.Selection([
+        ('civil', 'Civil'),
+        ('demobilized', 'Demobilized'),
+        ('fighter', 'Fighter'),
+        ('nationalservice', 'National Service'),
     ], default='active', string="Status")
     name_tigrigna = fields.Char(string='Tigrigna Name')
     er_id = fields.Char(string='ER ID')
