@@ -137,7 +137,7 @@ class HrEmployee(models.Model):
         ('returntorcc', 'Return to RCC'),
         ('terminated', 'Terminated'),
         ('sickness', 'Due to sickness'),
-    ], default='permanentstaff', string="Status")
+    ], default='terminated', string="Status")
     employee_type = fields.Selection([
         ('civil', 'Civil'),
         ('demobilized', 'Demobilized'),
