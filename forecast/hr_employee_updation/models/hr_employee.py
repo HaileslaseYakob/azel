@@ -105,6 +105,8 @@ class HrEmployeeFEmergencyContact(models.Model):
     house_no=fields.Char(string="House No")
 
 
+
+
 class HrEmployee(models.Model):
     _inherit = 'hr.employee'
 
@@ -114,15 +116,34 @@ class HrEmployee(models.Model):
                   help="Personal mobile number of the employee")
     mothername = fields.Char(string='Mother Name')
     employee_status = fields.Selection([
-        ('active', 'Active'),
+        ('permanentstaff', 'Permanent Staff'),
+        ('probation1', 'Probation Period 1'),
+        ('probation2', 'Probation Period 2'),
+        ('nationalservice', 'National Service'),
+        ('rcc', 'RCC'),
+        ('temporary', 'Temporary'),
         ('terminated', 'Terminated'),
-    ], default='active', string="Status")
+    ], default='permanentstaff', string="Status")
+
+
+    termination_reason = fields.Selection([
+        ('abscond', 'Abscond'),
+        ('Demobilized', 'Demobilized'),
+        ('Exempted', 'Exempted'),
+        ('released', 'Released from EDF'),
+        ('resign', 'Resign'),
+        ('returntomoh', 'Return to MOH'),
+        ('returntoedf', 'Return to EDF'),
+        ('returntorcc', 'Return to RCC'),
+        ('terminated', 'Terminated'),
+        ('sickness', 'Due to sickness'),
+    ], default='permanentstaff', string="Status")
     employee_type = fields.Selection([
         ('civil', 'Civil'),
         ('demobilized', 'Demobilized'),
         ('fighter', 'Fighter'),
         ('nationalservice', 'National Service'),
-    ], default='nationalservice', string="Status")
+    ], default='demobilized', string="Status")
     name_tigrigna = fields.Char(string='Tigrigna Name')
     er_id = fields.Char(string='ER ID')
     zone = fields.Many2one('hr.employee.zone', string="Zone")

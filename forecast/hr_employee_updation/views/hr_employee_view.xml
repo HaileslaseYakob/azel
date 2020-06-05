@@ -60,6 +60,7 @@
                 </field>
                 <field name="parent_id" position="after">
                     <field name="employee_status"/>
+                    <field name="termination_reason" attrs="{'invisible': [('employee_satus','!=', 'terminated')]}"/>
                 </field>
                  <field name="address_home_id" position="attributes">
                      <attribute name="invisible">1</attribute>
@@ -69,6 +70,9 @@
                 </field>
 
                  <field name="private_email" position="attributes">
+                     <attribute name="invisible">1</attribute>
+                </field>
+                <field name="identification_id" position="attributes">
                      <attribute name="invisible">1</attribute>
                 </field>
                 <field name="phone" position="attributes">
