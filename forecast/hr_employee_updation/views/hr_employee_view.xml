@@ -48,7 +48,7 @@
                     <field name="er_id"/>
                 </field>
                 <field name="bank_account_id" position="after">
-                    <field name="employee_type"/>
+                    <field name="employee_type" string="Employment Status"/>
                     <field name="round_id"/>
                 </field>
                 <field name="job_id" position="before">
