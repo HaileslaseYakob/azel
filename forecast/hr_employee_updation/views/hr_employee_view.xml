@@ -48,8 +48,8 @@
                     <field name="er_id"/>
                 </field>
                 <field name="bank_account_id" position="after">
-                    <field name="employee_type" string="Employment Status"/>
-                    <field name="round_id"/>
+                    <field name="employee_type" string="Service Status"/>
+                    <field name="round_id" string="Round Status"/>
                 </field>
                 <field name="job_id" position="before">
                     <field name="section_id"/>
@@ -59,8 +59,8 @@
                     <field name="joining_date"/>
                 </field>
                 <field name="parent_id" position="after">
-                    <field name="employee_status"/>
-                    <field name="termination_reason" attrs="{'invisible': [('employee_status','!=', 'terminated')]}"/>
+                    <field name="employee_status"  string="Employment Status"/>
+                    <field name="termination_reason"  string="Termination Reason" attrs="{'invisible': [('employee_status','!=', 'terminated')]}" />
                 </field>
                  <field name="address_home_id" position="attributes">
                      <attribute name="invisible">1</attribute>
