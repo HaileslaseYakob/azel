@@ -49,7 +49,7 @@
                 </field>
                 <field name="bank_account_id" position="after">
                     <field name="employee_type" string="Service Status"/>
-                    <field name="round_id" string="Round Status"/>
+                    <field name="round_id" string="Service Round"/>
                 </field>
                 <field name="job_id" position="before">
                     <field name="section_id"/>
