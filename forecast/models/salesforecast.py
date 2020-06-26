@@ -1,5 +1,20 @@
 import pandas as pd
 from odoo import fields, models,api
+class ProductPackaging(models.Model):
+    _name = 'mrp.packaging'
+
+
+    product_id = fields.Many2one(
+    'product.template', 'Packaging name')
+    product_packaging_id = fields.Many2one(
+    'product.template')
+    name=fields.Char('Name',related='product_id.name')
+
+class InheritProduct(models.Model):
+    _inherit = 'product.template'
+
+    productPackagingID=fields.One2many(
+    'mrp.packaging','product_packaging_id')
 
 
 class Salesforecast(models.Model):
@@ -27,6 +42,25 @@ class Salesforecast(models.Model):
                     'item_total': abs(bo.product_id.qty_available-( bo.product_qty * re.product_batch_size))*bo.product_id.standard_price}
                 list_bom_items.append((0, 0, obje))
                 list_items.append(obje)
+            if re.packaging_id.product_id:
+                pack_bom = self.env['mrp.bom'].search([
+                ('product_tmpl_id', '=', re.packaging_id.product_id.id)])
+
+            bomlist = self.env['mrp.bom.line'].search([
+                ('bom_id', '=', pack_bom.id)])
+            for bo in bomlist:
+                obje = {
+                    'item_id': bo.product_id.id,
+                    'product_id': re.product_id.id,
+                    'item_qty': bo.product_qty * re.product_batch_size,
+                    'item_available': bo.product_id.qty_available,
+                    'item_unit_price': bo.product_id.standard_price,
+                    'item_required': abs(bo.product_id.qty_available - (bo.product_qty * re.product_batch_size)),
+                    'item_total': abs(bo.product_id.qty_available - (
+                                bo.product_qty * re.product_batch_size)) * bo.product_id.standard_price}
+                list_bom_items.append((0, 0, obje))
+                list_items.append(obje)
+
 
         data=pd.DataFrame(list_items)
         grpd=data.groupby('item_id').agg({'item_qty':'sum','item_required':'sum','item_total':'sum','item_unit_price':'max'}).reset_index()
@@ -106,10 +140,26 @@ class SalesforecastProducts(models.Model):
              
             val.product_batch_size=wholeDividend
             val.product_qty=wholeDividend*val.product_batch_qty
-        
+
+
+    @api.onchange('packaging_id')
+    def onchange_packaging_id(self):
+        if not self.packaging_id:
+            self.pack_bom_id = False
+        else:
+
+            if self.packaging_id.product_id:
+                pack_bom = self.env['mrp.bom'].search([
+                ('product_tmpl_id', '=', self.packaging_id.product_id.id)])
+                if pack_bom:
+                    self.pack_bom_id=pack_bom.id
+
+        x=5
+        return
+
+
     @api.onchange('product_id')
     def onchange_product_id(self):
-        """ Finds UoM of changed product. """
         if not self.product_id:
             self.bom_id = False
         else:
@@ -118,6 +168,13 @@ class SalesforecastProducts(models.Model):
                                                 picking_type=self.salesforecast_id.picking_type_id,
                                                 company_id=self.salesforecast_id.picking_type_id.company_id.id,
                                                 bom_type='normal')
+
+            packaginglist = self.env['mrp.packaging'].search([
+                ('product_packaging_id', '=', self.product_id.productPackagingID.id)])
+            self.packaging_id = packaginglist.id
+
+
+
             if bom:
                 self.bom_id = bom.id
                 self.product_qty = self.bom_id.product_qty
@@ -132,7 +189,8 @@ class SalesforecastProducts(models.Model):
         'forecast.salesforecast', 'Salesforecast', store=True)
     product_id = fields.Many2one(
         'product.product', 'Product Name', store=True)
-
+    packaging_id = fields.Many2one(
+        'mrp.packaging', 'Packaging Name', store=True)
     product_unit_price = fields.Float(
         'Unit Price',
         related='product_id.list_price',
@@ -156,16 +214,11 @@ class SalesforecastProducts(models.Model):
     product_total = fields.Float(compute='compute_total', string='Total',store=True)
 
     bom_id = fields.Many2one(
-        'mrp.bom', 'Bill of Material',
-        domain="""[
-        '&',
-            '|',
-                ('product_id','=',product_id),
-                    '&',
-                        ('product_tmpl_id.product_variant_ids','=',product_id),
-                        ('product_id','=',False),
-        ('type', '=', 'normal')]""",
-        check_company=True, store=True,
+        'mrp.bom', 'Bill of Material', store=True,
+        help="Bill of Materials allow you to define the list of required components to make a finished product.")
+
+    pack_bom_id = fields.Many2one(
+        'mrp.bom', 'Bill of Material',store=True,
         help="Bill of Materials allow you to define the list of required components to make a finished product.")
 
     salesforecast_product_items_id = fields.One2many('forecast.salesforecastproductsitems', 'salesforcast_product_id',

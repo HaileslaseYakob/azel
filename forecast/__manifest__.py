@@ -9,7 +9,7 @@
     'category': 'Manufacturing/Salesforecast',
     'sequence': 16,
     'summary': 'Salesforecast',
-    'depends': ['mrp'],
+    'depends': ['mrp','inventory_update'],
     'description': "",
     'data': [
         'security/ir.model.access.csv',
