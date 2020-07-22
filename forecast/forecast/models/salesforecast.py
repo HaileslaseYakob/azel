@@ -170,7 +170,7 @@ class SalesforecastProducts(models.Model):
                                                 bom_type='normal')
 
             packaginglist = self.env['mrp.packaging'].search([
-                ('product_packaging_id', '=', self.product_id.productPackagingID.id)])
+                ('product_id', '=', self.product_id.id)])
             for packaging in packaginglist:
                 self.packaging_id = packaging.id
 
