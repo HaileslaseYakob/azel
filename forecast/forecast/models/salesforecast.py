@@ -175,10 +175,11 @@ class SalesforecastProducts(models.Model):
                 self.packaging_id = packaging.id
 
             if bom:
-                self.bom_id = bom.id
-                self.product_qty = self.bom_id.product_qty
-                self.product_batch_qty = self.bom_id.product_qty
-                self.product_uom_id = self.bom_id.product_uom_id.id
+                for b in bom:
+                    self.bom_id = bom.id
+                    self.product_qty = self.bom_id.product_qty
+                    self.product_batch_qty = self.bom_id.product_qty
+                    self.product_uom_id = self.bom_id.product_uom_id.id
             else:
                 self.bom_id = False
                 self.product_uom_id = self.product_id.uom_id.id
