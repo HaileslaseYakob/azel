@@ -171,6 +171,7 @@ class SalesforecastProducts(models.Model):
 
             packaginglist = self.env['mrp.packaging'].search([
                 ('product_id', '=', self.product_id.id)])
+            self.packaging_id = False
             for packaging in packaginglist:
                 self.packaging_id = packaging.id
 
