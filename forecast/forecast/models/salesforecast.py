@@ -188,7 +188,8 @@ class SalesforecastProducts(models.Model):
     salesforecast_id = fields.Many2one(
         'forecast.salesforecast', 'Salesforecast', store=True)
     product_id = fields.Many2one(
-        'product.product', 'Product Name', store=True,domain="[('sale_ok', '=', True)]")
+        'product.product', 'Product Name', store=True,
+        domain="[('bom_ids', '!=', False), ('bom_ids.active', '=', True), ('bom_ids.type', '=', 'normal')]")
     packaging_id = fields.Many2one(
         'mrp.packaging', 'Packaging Name', store=True)
     product_unit_price = fields.Float(
