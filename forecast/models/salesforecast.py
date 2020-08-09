@@ -171,15 +171,15 @@ class SalesforecastProducts(models.Model):
 
             packaginglist = self.env['mrp.packaging'].search([
                 ('product_id', '=', self.product_id.id)])
-            self.packaging_id = packaginglist.id
-
-
+            for packaging in packaginglist:
+                self.packaging_id = packaging.id
 
             if bom:
-                self.bom_id = bom.id
-                self.product_qty = self.bom_id.product_qty
-                self.product_batch_qty = self.bom_id.product_qty
-                self.product_uom_id = self.bom_id.product_uom_id.id
+                for b in bom:
+                    self.bom_id = bom.id
+                    self.product_qty = self.bom_id.product_qty
+                    self.product_batch_qty = self.bom_id.product_qty
+                    self.product_uom_id = self.bom_id.product_uom_id.id
             else:
                 self.bom_id = False
                 self.product_uom_id = self.product_id.uom_id.id
@@ -188,7 +188,7 @@ class SalesforecastProducts(models.Model):
     salesforecast_id = fields.Many2one(
         'forecast.salesforecast', 'Salesforecast', store=True)
     product_id = fields.Many2one(
-        'product.product', 'Product Name', store=True)
+        'product.product', 'Product Name', store=True,domain="[('sale_ok', '=', True)]")
     packaging_id = fields.Many2one(
         'mrp.packaging', 'Packaging Name', store=True)
     product_unit_price = fields.Float(
