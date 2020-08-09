@@ -10,15 +10,15 @@
         <field name="barcode" position="before">
                 <field name="classification_id"/>
                 <field name="sub_classification_id"/>
-                <field name="dosage_form"/>
+                <field name="dosage_form" attrs="{'invisible':[(('sale_ok', '!=', True))]}"/>
+                <field name="production_line" attrs="{'invisible':[(('sale_ok', '!=', True))]}"/>
                 <field name="shelf_life"/>
                 <field name="store_type_id"/>
-        </field>
-        <field name="list_price" position="before">
                 <field name="min_available" string="Min Qty"/>
                 <field name="reordering_min_qty" string="Reorder Qty"/>
                 <field name="reordering_max_qty" string="Max Qty"/>
         </field>
+
      </field>
     </record>
 
