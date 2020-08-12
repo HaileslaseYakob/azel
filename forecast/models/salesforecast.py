@@ -7,7 +7,9 @@ class ProductPackaging(models.Model):
     product_id = fields.Many2one(
     'product.template', 'Product name')
     product_packaging_id = fields.Many2one(
-    'product.template',"Packaging name")
+    'product.template',"Packaging name",
+    domain="[('bom_ids', '!=', False),('sale_ok', '!=', True), ('bom_ids.active', '=', True), ('bom_ids.type', '=', 'normal')]")
+
     name=fields.Char('Name',related='product_packaging_id.name')
 
 class InheritProduct(models.Model):
