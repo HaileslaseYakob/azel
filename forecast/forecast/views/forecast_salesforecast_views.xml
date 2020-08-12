@@ -143,6 +143,7 @@
 
         <menuitem action="forecast_salesforecast_action"
             id="menu_forecast_salesforecast_action"
+            parent="base.menu_forecast"
             name="Salesforecast"
             sequence="1"/>
 
@@ -185,7 +186,7 @@
             </field>
         </record>
 
-        <menuitem name="Master Data"
+        <menuitem name="Salesforecast"
             id="base.menu_forecast"
             sequence="80"/>
 
