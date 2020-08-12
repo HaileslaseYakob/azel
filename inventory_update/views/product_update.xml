@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+    <record id="product_template_updates_form_view_inherit" model="ir.ui.view">
+        <field name="name">product.template.inherit.form</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="arch" type="xml">
+        <field name="barcode" position="before">
+                <field name="classification_id"/>
+                <field name="sub_classification_id"/>
+                <field name="dosage_form" attrs="{'invisible':[(('sale_ok', '!=', True))]}"/>
+                <field name="production_line" attrs="{'invisible':[(('sale_ok', '!=', True))]}"/>
+                <field name="shelf_life"/>
+                <field name="store_type_id"/>
+                <field name="min_available" string="Min Qty"/>
+                <field name="reordering_min_qty" string="Reorder Qty"/>
+                <field name="reordering_max_qty" string="Max Qty"/>
+        </field>
+
+     </field>
+    </record>
+
+    <record id="view_product_update_tree_inherit" model="ir.ui.view">
+        <field name="name">product.template.tree.inherit</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_tree_view"/>
+        <field name="arch" type="xml">
+
+
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="classification_id"/>
+                <field name="sub_classification_id"/>
+                <field name="dosage_form"/>
+                <field name="shelf_life"/>
+                <field name="store_type_id"/>
+            </xpath>
+            <xpath expr="//field[@name='qty_available']" position="before">
+                <field name="min_available" string="Min Qty"/>
+                <field name="reordering_min_qty" string="Reorder Qty"/>
+                <field name="reordering_max_qty" string="Max Qty"/>
+            </xpath>
+        </field>
+     </record>
+    </data>
+</odoo>
