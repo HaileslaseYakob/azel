@@ -185,10 +185,16 @@
             </field>
         </record>
 
+        <menuitem name="Master Data"
+            id="base.menu_forecast"
+            sequence="80"/>
+
         <menuitem action="product_packaging_update_action"
             id="menu_product_packaging_update"
+            parent="base.menu_forecast"
             name="Product Packaging"
             sequence="1"/>
+
     </data>
 </odoo>
 
