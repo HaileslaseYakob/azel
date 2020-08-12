@@ -5,7 +5,9 @@ class ProductPackaging(models.Model):
     _inherit = ['mail.thread', 'mail.activity.mixin']
 
     product_id = fields.Many2one(
-    'product.template', 'Product name')
+    'product.template', 'Product name',
+    domain="[('bom_ids', '!=', False),('sale_ok', '!=', False), ('bom_ids.active', '=', True), ('bom_ids.type', '=', 'normal')]")
+
     product_packaging_id = fields.Many2one(
     'product.template',"Packaging name",
     domain="[('bom_ids', '!=', False),('sale_ok', '!=', True), ('bom_ids.active', '=', True), ('bom_ids.type', '=', 'normal')]")
