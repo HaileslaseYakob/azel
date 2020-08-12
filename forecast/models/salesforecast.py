@@ -2,13 +2,13 @@ import pandas as pd
 from odoo import fields, models,api
 class ProductPackaging(models.Model):
     _name = 'mrp.packaging'
-
+    _inherit = ['mail.thread', 'mail.activity.mixin']
 
     product_id = fields.Many2one(
-    'product.template', 'Packaging name')
+    'product.template', 'Product name')
     product_packaging_id = fields.Many2one(
-    'product.template')
-    name=fields.Char('Name',related='product_id.name')
+    'product.template',"Packaging name")
+    name=fields.Char('Name',related='product_packaging_id.name')
 
 class InheritProduct(models.Model):
     _inherit = 'product.template'
@@ -44,7 +44,7 @@ class Salesforecast(models.Model):
                 list_items.append(obje)
             if re.packaging_id.product_id:
                 pack_bom = self.env['mrp.bom'].search([
-                ('product_tmpl_id', '=', re.packaging_id.product_id.id)])
+                ('product_tmpl_id', '=', re.packaging_id.product_packaging_id.id)])
 
             bomlist = self.env['mrp.bom.line'].search([
                 ('bom_id', '=', pack_bom.id)])
@@ -154,7 +154,7 @@ class SalesforecastProducts(models.Model):
                 if pack_bom:
                     self.pack_bom_id=pack_bom.id
 
-        x=5
+
         return
 
 
@@ -171,8 +171,10 @@ class SalesforecastProducts(models.Model):
 
             packaginglist = self.env['mrp.packaging'].search([
                 ('product_id', '=', self.product_id.id)])
-            for packaging in packaginglist:
-                self.packaging_id = packaging.id
+
+            self.packaging_id = False
+            if packaginglist:
+               self.packaging_id=packaginglist
 
             if bom:
                 for b in bom:
@@ -188,9 +190,11 @@ class SalesforecastProducts(models.Model):
     salesforecast_id = fields.Many2one(
         'forecast.salesforecast', 'Salesforecast', store=True)
     product_id = fields.Many2one(
-        'product.product', 'Product Name', store=True,domain="[('sale_ok', '=', True)]")
+        'product.product', 'Product Name', store=True,
+        domain="[('bom_ids', '!=', False),('sale_ok', '!=', False), ('bom_ids.active', '=', True), ('bom_ids.type', '=', 'normal')]")
     packaging_id = fields.Many2one(
         'mrp.packaging', 'Packaging Name', store=True)
+
     product_unit_price = fields.Float(
         'Unit Price',
         related='product_id.list_price',
