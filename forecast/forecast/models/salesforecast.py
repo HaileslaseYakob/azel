@@ -2,12 +2,12 @@ import pandas as pd
 from odoo import fields, models,api
 class ProductPackaging(models.Model):
     _name = 'mrp.packaging'
-
+    _inherit = ['mail.thread', 'mail.activity.mixin']
 
     product_id = fields.Many2one(
-    'product.template', 'Packaging name')
+    'product.template', 'Product name')
     product_packaging_id = fields.Many2one(
-    'product.template')
+    'product.template',"Packaging name")
     name=fields.Char('Name',related='product_id.name')
 
 class InheritProduct(models.Model):
@@ -154,7 +154,7 @@ class SalesforecastProducts(models.Model):
                 if pack_bom:
                     self.pack_bom_id=pack_bom.id
 
-        x=5
+
         return
 
 
@@ -171,6 +171,7 @@ class SalesforecastProducts(models.Model):
 
             packaginglist = self.env['mrp.packaging'].search([
                 ('product_id', '=', self.product_id.id)])
+            self.packaging_id=False
             for packaging in packaginglist:
                 self.packaging_id = packaging.id
 
@@ -188,7 +189,8 @@ class SalesforecastProducts(models.Model):
     salesforecast_id = fields.Many2one(
         'forecast.salesforecast', 'Salesforecast', store=True)
     product_id = fields.Many2one(
-        'product.product', 'Product Name', store=True)
+        'product.product', 'Product Name', store=True,
+        domain="[('bom_ids', '!=', False), ('bom_ids.active', '=', True), ('bom_ids.type', '=', 'normal')]")
     packaging_id = fields.Many2one(
         'mrp.packaging', 'Packaging Name', store=True)
     product_unit_price = fields.Float(

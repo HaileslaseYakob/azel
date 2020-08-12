@@ -147,18 +147,48 @@
             sequence="1"/>
 
 
-        <record id="act_product_forecast_salesforecast" model="ir.actions.act_window">
-            <field name="name">Manufacturing Orders</field>
-            <field name="res_model">forecast.salesforecast</field>
-            <field name="view_id" ref="forecast_salesforecast_tree_view"/>
+
+        <record id="product_packaging_update_form_view" model="ir.ui.view">
+            <field name="name">mrp.packaging.form</field>
+            <field name="model">mrp.packaging</field>
+            <field name="arch" type="xml">
+                <form string="Product packaging form.">
+
+                <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="product_id"/>
+                            <field name="product_packaging_id"/>
+                        </group>
+
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+                </form>
+            </field>
         </record>
 
-        <record id="action_forecast_salesforecast_form" model="ir.actions.act_window">
-            <field name="name">Manufacturing Orders</field>
+        <record id="product_packaging_update_action" model="ir.actions.act_window">
+            <field name="name">Product Packaging </field>
             <field name="type">ir.actions.act_window</field>
-            <field name="res_model">forecast.salesforecast</field>
-            <field name="view_mode">form</field>
+            <field name="res_model">mrp.packaging</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" eval="False"/>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                Create a new product packaging <br/>
+              </p><p>
+              </p>
+            </field>
         </record>
+
+        <menuitem action="product_packaging_update_action"
+            id="menu_product_packaging_update"
+            name="Product Packaging"
+            sequence="1"/>
     </data>
 </odoo>
 
