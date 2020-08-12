@@ -140,15 +140,6 @@
             <field name="view_id" eval="False"/>
         </record>
 
-
-        <menuitem action="forecast_salesforecast_action"
-            id="menu_forecast_salesforecast_action"
-            parent="menu_forecast"
-            name="Salesforecast"
-            sequence="1"/>
-
-
-
         <record id="product_packaging_update_form_view" model="ir.ui.view">
             <field name="name">mrp.packaging.form</field>
             <field name="model">mrp.packaging</field>
@@ -195,7 +186,11 @@
             parent="menu_forecast"
             name="Product Packaging"
             sequence="1"/>
-
+        <menuitem action="forecast_salesforecast_action"
+            id="menu_forecast_salesforecast_action"
+            parent="menu_forecast"
+            name="Salesforecast"
+            sequence="1"/>
     </data>
 </odoo>
 
