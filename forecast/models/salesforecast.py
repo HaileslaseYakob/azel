@@ -174,13 +174,6 @@ class SalesforecastProducts(models.Model):
                                                 company_id=self.salesforecast_id.picking_type_id.company_id.id,
                                                 bom_type='normal')
 
-            packaginglist = self.env['mrp.packaging'].search([
-                ('product_id', '=', self.product_id.id)])
-
-            self.packaging_id = False
-            if packaginglist:
-               self.packaging_id=packaginglist
-
             if bom:
                 for b in bom:
                     self.bom_id = bom.id
@@ -190,7 +183,9 @@ class SalesforecastProducts(models.Model):
             else:
                 self.bom_id = False
                 self.product_uom_id = self.product_id.uom_id.id
-            return {'domain': {'product_uom_id': [('category_id', '=', self.product_id.uom_id.category_id.id)]}}
+            domain = {'packaging_id': [('product_id', '=', self.product_id.id)]}
+            return {'domain': domain}
+            #return {'domain': {'product_uom_id': [('category_id', '=', self.product_id.uom_id.category_id.id)]}}
 
     salesforecast_id = fields.Many2one(
         'forecast.salesforecast', 'Salesforecast', store=True)
@@ -282,7 +277,7 @@ class SalesforecastProductItems(models.Model):
 
 
     @api.onchange('item_required')
-    def onchange_product_id(self):
+    def onchange_product_item_required(self):
         """ Finds UoM of changed product. """
         self.item_total = self.item_unit_price * self.item_required
 
