@@ -193,12 +193,12 @@
             id="menu_product_packaging_update"
             parent="menu_forecast"
             name="Product Packaging"
-            sequence="1"/>
+            sequence="2"/>
 
          <menuitem id="menu_mrp_bom_form_actionn"
             action="mrp.mrp_bom_form_action"
             parent="menu_forecast"
-            sequence="13"/>
+            sequence="3"/>
     </data>
 </odoo>
 
