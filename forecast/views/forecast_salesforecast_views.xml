@@ -40,13 +40,13 @@
             <field name="name">forecast.salesforecast.form</field>
             <field name="model">forecast.salesforecast</field>
             <field name="arch" type="xml">
-                <form string="Salesforecast form.">
+                <form string="Sales forecast form.">
                         <header>
                         <button name="list_consumption" string="List Consumption" type="object" groups="base.group_user"/>
                         </header>
                 <sheet>
                     <div class="oe_title">
-                        <h1><field name="name" placeholder="Salesforecast Reference" nolabel="1"/></h1>
+                        <h1><field name="name" placeholder="Sales forecast Reference" nolabel="1"/></h1>
 
                     </div>
                     <group>
@@ -118,22 +118,22 @@
 
 
         <record id="forecast_salesforecast_action" model="ir.actions.act_window">
-            <field name="name">Salesforecast </field>
+            <field name="name">Sales forecast </field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">forecast.salesforecast</field>
             <field name="view_mode">tree,kanban,form</field>
             <field name="view_id" eval="False"/>
             <field name="help" type="html">
               <p class="o_view_nocontent_smiling_face">
-                Create a new salesforecast <br/>
+                Create a new sales forecast <br/>
               </p><p>
-                This form helps manage salesforecast and show ingredients required to manufacture the products.
+                This form helps manage sales forecast and show ingredients required to manufacture the products.
               </p>
             </field>
         </record>
 
         <record id="forecast_salesforecast_action_picking_deshboard" model="ir.actions.act_window">
-            <field name="name">Salesforecast</field>
+            <field name="name">Sales forecast</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">forecast.salesforecast</field>
             <field name="view_mode">tree,form</field>
@@ -151,6 +151,8 @@
                             <field name="name"/>
                             <field name="product_id"/>
                             <field name="product_packaging_id"/>
+                            <field name="qtyOnBlister"/>
+                            <field name="qtyOnPackage"/>
                         </group>
 
                 </sheet>
@@ -177,20 +179,26 @@
             </field>
         </record>
 
-        <menuitem name="Salesforecast"
+        <menuitem name="Sales forecast"
             id="menu_forecast"
             sequence="80"/>
+
+        <menuitem action="forecast_salesforecast_action"
+            id="menu_forecast_salesforecast_action"
+            parent="menu_forecast"
+            name="Sales forecast"
+            sequence="1"/>
 
         <menuitem action="product_packaging_update_action"
             id="menu_product_packaging_update"
             parent="menu_forecast"
             name="Product Packaging"
             sequence="1"/>
-        <menuitem action="forecast_salesforecast_action"
-            id="menu_forecast_salesforecast_action"
+
+         <menuitem id="menu_mrp_bom_form_actionn"
+            action="mrp.mrp_bom_form_action"
             parent="menu_forecast"
-            name="Salesforecast"
-            sequence="1"/>
+            sequence="13"/>
     </data>
 </odoo>
 

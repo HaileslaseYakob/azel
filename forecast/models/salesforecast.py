@@ -5,14 +5,15 @@ class ProductPackaging(models.Model):
     _inherit = ['mail.thread', 'mail.activity.mixin']
 
     product_id = fields.Many2one(
-    'product.template', 'Product name',
-    domain="[('bom_ids', '!=', False),('sale_ok', '!=', False), ('bom_ids.active', '=', True), ('bom_ids.type', '=', 'normal')]")
-
+    'product.template', 'Product name')
+    qtyOnBlister = fields.Integer('Qty on Blister')
+    qtyOnPackage = fields.Integer('Qty on Package')
     product_packaging_id = fields.Many2one(
     'product.template',"Packaging name",
     domain="[('bom_ids', '!=', False),('sale_ok', '!=', True), ('bom_ids.active', '=', True), ('bom_ids.type', '=', 'normal')]")
 
-    name=fields.Char('Name',related='product_packaging_id.name')
+    name=fields.Char('Name',related='product_packaging_id.name'
+                     )
 
 class InheritProduct(models.Model):
     _inherit = 'product.template'
