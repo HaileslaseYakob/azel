@@ -128,7 +128,7 @@ class SalesforecastProducts(models.Model):
     """ List of salesforecast products """
     _name = 'forecast.salesforecastproducts'
     _description = 'Salesforecast Products'
-    
+
     @api.depends('product_qty')
     def compute_total(self):
 
@@ -142,10 +142,15 @@ class SalesforecastProducts(models.Model):
             decimalDividend=val.product_qty%val.product_batch_qty
             if decimalDividend>0:
                 wholeDividend+=1
-             
+
             val.product_batch_size=wholeDividend
             val.product_qty=wholeDividend*val.product_batch_qty
 
+    @api.onchange('product_batch_size')
+    def onchange_product_batch_size(self):
+
+        for val in self:
+            val.product_qty = val.product_batch_size * val.product_batch_qty
 
     @api.onchange('packaging_id')
     def onchange_packaging_id(self):
@@ -200,7 +205,7 @@ class SalesforecastProducts(models.Model):
         'Unit Price',
         related='product_id.list_price',
         readonly=False, store=True)
-
+    batch_size_changed=fields.Boolean("batch size is clicked",store=False)
     product_qty = fields.Float(
         'Quantity Forecasted',
         default=1.0, digits='Product Unit of Measure',
