@@ -37,7 +37,7 @@
                 <field name="generic_name"/>
                 <field name="spec_doc_no"/>
             </xpath>
-            <xpath expr="//field[@name='list_price']" position="before">
+            <xpath expr="//field[@name='qty_available']" position="before">
                 <field name="store_type_id"/>
                 <field name="min_available" string="Min Qty"/>
                 <field name="reordering_min_qty" string="Reorder Qty"/>
