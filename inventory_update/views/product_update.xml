@@ -34,9 +34,11 @@
                 <field name="sub_classification_id"/>
                 <field name="dosage_form"/>
                 <field name="shelf_life"/>
-                <field name="store_type_id"/>
+                <field name="generic_name"/>
+                <field name="spec_doc_no"/>
             </xpath>
             <xpath expr="//field[@name='qty_available']" position="before">
+                <field name="store_type_id"/>
                 <field name="min_available" string="Min Qty"/>
                 <field name="reordering_min_qty" string="Reorder Qty"/>
                 <field name="reordering_max_qty" string="Max Qty"/>

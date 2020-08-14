@@ -47,3 +47,5 @@ class ProductUpdate(models.Model):
     sub_classification_id = fields.Many2one('product.subclassification')
     store_type_id = fields.Many2one('product.storetype')
     min_available=fields.Float('Min')
+    generic_name=fields.Char("Generic Name: ")
+    spec_doc_no = fields.Char("SpecDocNo: ")
