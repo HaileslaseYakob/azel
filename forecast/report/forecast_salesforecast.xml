@@ -33,7 +33,7 @@
 
                     <h3 t-if="o.salesforecast_product">
                         <t>
-                            Salesforecast Ingredients Summary
+                            Sales Forecast Ingredients Summary
                         </t>
                     </h3>
 

@@ -3,7 +3,7 @@
     <data>
         
          <report
-            string="Salesforecast"
+            string="Sales Forecast"
             id="action_report_salesforecast_products"
             model="forecast.salesforecast"
             name="forecast.report_salesforecast_products"

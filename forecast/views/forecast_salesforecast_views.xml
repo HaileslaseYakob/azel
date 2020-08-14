@@ -8,8 +8,8 @@
             <field name="arch" type="xml">
                 <tree string="Salesforecast list" multi_edit="1">
                     <field name="message_needaction" invisible="1"/>
-                    <field name="salesforecast_name"/>
-                     <field name="user_id" optional="show"/>
+                    <field name="salesforecast_name" string="Sales Forecast"/>
+                     <field name="user_id" optional="show" string="Prepared By"/>
                     <field name="date_planned_start" optional="show"/>
                     <field name="date_planned_finished" optional="show"/>
                 </tree>
@@ -144,7 +144,7 @@
             <field name="name">mrp.packaging.form</field>
             <field name="model">mrp.packaging</field>
             <field name="arch" type="xml">
-                <form string="Product packaging form.">
+                <form string="Packaging Instructions">
 
                 <sheet>
                         <group>
@@ -166,14 +166,14 @@
         </record>
 
         <record id="product_packaging_update_action" model="ir.actions.act_window">
-            <field name="name">Product Packaging </field>
+            <field name="name">Packaging Instructions</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">mrp.packaging</field>
             <field name="view_mode">tree,form</field>
             <field name="view_id" eval="False"/>
             <field name="help" type="html">
               <p class="o_view_nocontent_smiling_face">
-                Create a new product packaging <br/>
+                Create a new Packaging Instructions <br/>
               </p><p>
               </p>
             </field>
@@ -192,7 +192,7 @@
         <menuitem action="product_packaging_update_action"
             id="menu_product_packaging_update"
             parent="menu_forecast"
-            name="Product Packaging"
+            name="Packaging Instructions"
             sequence="2"/>
 
          <menuitem id="menu_mrp_bom_form_actionn"

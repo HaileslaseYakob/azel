@@ -5,7 +5,7 @@ class ProductPackaging(models.Model):
     _inherit = ['mail.thread', 'mail.activity.mixin']
 
     product_id = fields.Many2one(
-    'product.template', 'Product name')
+    'product.template', 'Product')
     qtyOnBlister = fields.Integer('Qty on Blister')
     qtyOnPackage = fields.Integer('Qty on Package')
     product_packaging_id = fields.Many2one(
@@ -99,9 +99,9 @@ class Salesforecast(models.Model):
         index=True, required=True)
 
     name = fields.Char(
-        'Salesforecast no', copy=False, readonly=True)
+        'Sales Forecast no', copy=False, readonly=True)
     salesforecast_name = fields.Char(
-        'Salesforecast ref')
+        'Sales Forecast: ')
     date_planned_start = fields.Datetime(
         'Forecast starting Date', copy=False, default=fields.Datetime.now,
         help="Date at which you plan to start the production.", required=True, store=True)
@@ -118,8 +118,8 @@ class Salesforecast(models.Model):
     company_id = fields.Many2one(
         'res.company', 'Company', default=lambda self: self.env.company,
         index=True, required=True)
-    salesforecast_product = fields.One2many('forecast.salesforecastproducts', 'salesforecast_id', 'Salesforecast Products')
-    salesforecast_items = fields.One2many('forecast.salesforecastproductsitems', 'salesforecast_id', 'Salesforecast Items')
+    salesforecast_product = fields.One2many('forecast.salesforecastproducts', 'salesforecast_id', 'Sales Forecast Products')
+    salesforecast_items = fields.One2many('forecast.salesforecastproductsitems', 'salesforecast_id', 'Sales Forecast Items')
     salesforecast_items_grouped = fields.One2many('forecast.salesforecastitemsgrouped', 'salesforecast_id', 'Ingredients summary')
 
 
@@ -127,7 +127,7 @@ class Salesforecast(models.Model):
 class SalesforecastProducts(models.Model):
     """ List of salesforecast products """
     _name = 'forecast.salesforecastproducts'
-    _description = 'Salesforecast Products'
+    _description = 'Sales Forecast Products'
 
     @api.depends('product_qty')
     def compute_total(self):
@@ -196,10 +196,10 @@ class SalesforecastProducts(models.Model):
     salesforecast_id = fields.Many2one(
         'forecast.salesforecast', 'Salesforecast', store=True)
     product_id = fields.Many2one(
-        'product.product', 'Product Name', store=True,
+        'product.product', 'Product', store=True,
         domain="[('bom_ids', '!=', False),('sale_ok', '!=', False), ('bom_ids.active', '=', True), ('bom_ids.type', '=', 'normal')]")
     packaging_id = fields.Many2one(
-        'mrp.packaging', 'Packaging Name', store=True)
+        'mrp.packaging', 'Packaging', store=True)
 
     product_unit_price = fields.Float(
         'Unit Price',
