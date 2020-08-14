@@ -14,17 +14,13 @@
                 <field name="production_line" attrs="{'invisible':[(('sale_ok', '!=', True))]}"/>
                 <field name="shelf_life"/>
                 <field name="store_type_id"/>
+                <field name="generic_name"/>
+                <field name="spec_doc_no"/>
                 <field name="min_available" string="Min Qty"/>
                 <field name="reordering_min_qty" string="Reorder Qty"/>
                 <field name="reordering_max_qty" string="Max Qty"/>
         </field>
-        <field name="standard_price" position="before">
-                <field name="generic_name"/>
-                <field name="spec_doc_no"/>
-        </field>    
-
-
-     </field>
+      </field>
     </record>
 
     <record id="view_product_update_tree_inherit" model="ir.ui.view">
