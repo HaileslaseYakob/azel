@@ -12,15 +12,26 @@
                 <field name="sub_classification_id"/>
                 <field name="dosage_form" attrs="{'invisible':[(('sale_ok', '!=', True))]}"/>
                 <field name="production_line" attrs="{'invisible':[(('sale_ok', '!=', True))]}"/>
-                <field name="shelf_life"/>
-                <field name="store_type_id"/>
                 <field name="generic_name"/>
                 <field name="spec_doc_no"/>
+                <field name="shelf_life"/>
+                <field name="store_type_id"/>
                 <field name="min_available" string="Min Qty"/>
                 <field name="reordering_min_qty" string="Reorder Qty"/>
                 <field name="reordering_max_qty" string="Max Qty"/>
+
         </field>
-      </field>
+        <xpath expr="//field[@name='list_price']" position="replace">
+            <group>
+                <field name="list_price" />
+                <field name="min_available" string="Min Qty"/>
+                <field name="reordering_min_qty" string="Reorder Qty"/>
+                <field name="reordering_max_qty" string="Max Qty"/>
+
+            </group>
+
+        </xpath>
+     </field>
     </record>
 
     <record id="view_product_update_tree_inherit" model="ir.ui.view">
@@ -36,7 +47,7 @@
                 <field name="dosage_form"/>
                 <field name="shelf_life"/>
                 <field name="generic_name"/>
-                <field name="spec_doc_no"/>
+                <field name="generic_name"/>
             </xpath>
             <xpath expr="//field[@name='qty_available']" position="before">
                 <field name="store_type_id"/>
@@ -46,5 +57,21 @@
             </xpath>
         </field>
      </record>
+
+     <record id="custom_product_template_action_product" model="ir.actions.act_window">
+        <field name="name">Inventory Items</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.template</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="context"></field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new Inventory Items
+            </p>
+        </field>
+    </record>
+
+            <menuitem id="menu_product_variant_config_stock" name="Inventory Items" action="custom_product_template_action_product"
+        parent="stock.menu_stock_inventory_control" sequence="1"/>
     </data>
 </odoo>
