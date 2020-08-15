@@ -40,13 +40,13 @@
             <field name="name">forecast.salesforecast.form</field>
             <field name="model">forecast.salesforecast</field>
             <field name="arch" type="xml">
-                <form string="Sales forecast form.">
+                <form string="Sales Forecast form.">
                         <header>
-                        <button name="list_consumption" string="List Consumption" type="object" groups="base.group_user"/>
+                        <button name="list_consumption" string="Generate Bill of Material" type="object" groups="base.group_user"/>
                         </header>
                 <sheet>
                     <div class="oe_title">
-                        <h1><field name="name" placeholder="Sales forecast Reference" nolabel="1"/></h1>
+                        <h1><field name="name" placeholder="Sales Forecast Reference" nolabel="1"/></h1>
 
                     </div>
                     <group>
@@ -118,7 +118,7 @@
 
 
         <record id="forecast_salesforecast_action" model="ir.actions.act_window">
-            <field name="name">Sales forecast </field>
+            <field name="name">Sales Forecast </field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">forecast.salesforecast</field>
             <field name="view_mode">tree,kanban,form</field>
@@ -133,7 +133,7 @@
         </record>
 
         <record id="forecast_salesforecast_action_picking_deshboard" model="ir.actions.act_window">
-            <field name="name">Sales forecast</field>
+            <field name="name">Sales Forecast</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">forecast.salesforecast</field>
             <field name="view_mode">tree,form</field>
@@ -179,7 +179,7 @@
             </field>
         </record>
 
-        <menuitem name="Sales forecast"
+        <menuitem name="Sales Forecast"
             id="menu_forecast"
             sequence="80"/>
 
