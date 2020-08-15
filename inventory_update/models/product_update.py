@@ -43,6 +43,7 @@ class ProductUpdate(models.Model):
     dosage_form = fields.Many2one('product.dosageform')
     production_line = fields.Many2one('product.productionline')
     batch_no=fields.Char("Batch No")
+    is_packaging=fields.Boolean("Packaging Product",default=False)
     classification_id = fields.Many2one('product.classification')
     sub_classification_id = fields.Many2one('product.subclassification')
     store_type_id = fields.Many2one('product.storetype')
