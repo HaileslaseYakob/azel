@@ -64,7 +64,7 @@
         <field name="res_model">product.template</field>
         <field name="view_mode">kanban,tree,form</field>
         <field name="context">{'default_is_packaging': False,'default_sale_ok': False}</field>
-        <field name="domain">[('sale_ok','=','False')]</field>
+        <field name="domain">[('sale_ok','!=',True)]</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Create a new Inventory Items
