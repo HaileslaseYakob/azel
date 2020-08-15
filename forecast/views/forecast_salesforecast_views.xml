@@ -186,19 +186,19 @@
         <menuitem action="forecast_salesforecast_action"
             id="menu_forecast_salesforecast_action"
             parent="menu_forecast"
-            name="Sales forecast"
+            name="Sales Forecast"
             sequence="1"/>
 
         <menuitem action="product_packaging_update_action"
             id="menu_product_packaging_update"
             parent="menu_forecast"
             name="Packaging Instructions"
-            sequence="2"/>
+            sequence="3"/>
 
          <menuitem id="menu_mrp_bom_form_actionn"
             action="mrp.mrp_bom_form_action"
             parent="menu_forecast"
-            sequence="3"/>
+            sequence="2"/>
     </data>
 </odoo>
 
